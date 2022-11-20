@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ADD NEW COMMENT{% endblock title %}
+
+{% block body %}
+<br>
+{{ post.tweet }}
+<br>
+<form id="comment" action="{% url 'blog:retweet_post' pk=post.pk %}" method="POST">
+    {% csrf_token %}
+    <input name="body" type="text" id="body" placeholder="Enter your retweet" required="">
+    <button type="submit" id="form-submit" >Submit</button>
+
+</form>
+{% endblock body %}

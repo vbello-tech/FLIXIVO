@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ADD NEW COMMENT{% endblock title %}
+
+{% block body %}
+<br>
+{{ post.tweet }}
+<br>
+{% for comment in post.comments.all %}
+    {{ comment.comment }}
+<br>
+{% endfor %}
+
+<form method="POST" class="form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <br>
+       <button type="submit" id="form-submit" class="main-button">POST</button>
+    </form>
+
+{% endblock body %}

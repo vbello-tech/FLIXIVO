@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}DELETE POST{% endblock title %}
+
+{% block body %}
+
+
+<form method="POST">
+    {% csrf_token %}
+    <p>ARE YOU SURE U WANT TO DELETE THIS POST</p>
+    <input type="submit" value="DELETE"/><a href="{% url 'blog:home' %}">CANCEL</a>
+
+</form>
+
+
+{% endblock body %}

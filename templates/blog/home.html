@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}HOMEPAGE{% endblock title %}
+
+{% block body %}
+
+<h1>WELCOME</h1>
+{% for post in posts %}
+    <a href="{{ post.get_url }}">{{ post.tweet }}</a>
+
+    <a href="{{ post.edit_url }}">Edit</a><a href="{{ post.delete_url }}">Delete</a>
+<br>
+{% if post.parenttweet %}
+        {{ post.parent.tweet }}
+    {% endif %}
+    <form method="post" action="{% url 'blog:like' %}">
+        {% csrf_token %}
+        LIKES-{{ post.total_likes }}
+        {% if request.user in post.likes.all %}
+        <button name="post_id" value="{{ post.id }}" type="submit">UnLike</button>
+        {% else %}
+        <button name="post_id" value="{{ post.id }}" type="submit">Like</button>
+        {% endif %}
+    </form>
+    <a href="{{ post.retweet }}">retweet</a>
+<br>
+<br>
+
+{% endfor %}
+{% endblock body %}
