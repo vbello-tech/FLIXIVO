@@ -7,6 +7,7 @@
 
 <h1>WELCOME</h1>
 {% for post in posts %}
+    <a href="{% url 'user:profile' pk=post.author.pk %}">{{ post.author }}</a>
     <a href="{{ post.get_url }}">{{ post.tweet }}</a>
 
     <a href="{{ post.edit_url }}">Edit</a><a href="{{ post.delete_url }}">Delete</a>

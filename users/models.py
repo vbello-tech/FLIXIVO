@@ -25,7 +25,7 @@ class UserProfile(models.Model):
         })
 
     def __str__(self):
-        return f"{self.user}  profile"
+        return f"{self.person}  profile"
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

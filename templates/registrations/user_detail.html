@@ -3,43 +3,11 @@
 
 {% block body %}
 
-<div class="container">
-    <div class="row">
-<br><br><br>
+{{ profile.person }}
 
-       <div class="profile">
-            <span>
-                <h3>{{ object.username }}'s profile</h3>
-                <a class="nav-link" href="{% url 'user:change_password' %}">CHANGE PASSWORD</a>
-            </span>
-            <ul>
-                <li><b>{{ object.first_name }} {{ object.last_name }}</b></li>
-                <li>{{ object.email }}</li>
-                <a href="{% url 'user:user_edit' pk=object.pk %}">edit user</a>
-            </ul>
+{{ profile.bio }}
 
-           <ul>
-               <li><a href="{{ object.userprofile.portfolio }}">PORTFOLIO</a></li>
-                <li><a href="{{ object.userprofile.github }}">GITHUB </a></li>
-                <li><a href="{{ object.userprofile.linkedin }}">LINKEDIN</a></li>
-               <li>{{ object.userprofile.phone }}</li>
-               <a href="{% url 'resume:profile_edit' %}">edit profile</a>
-           </ul>
-        </div>
-<hr>
-        <div class="resume">
-            <span>BIO</span>
-            <p>
-                  {{ object.userprofile.bio }}
-
-            </p>
-
-        </div>
-                       <a href="{% url 'resume:user_resume' %}" class="text-center btn btn-primary">YOUR RESUMES</a>
-
-    </div>
-</div>
-
+following-{{ profile.following.count }}followers-{{ profile.followers.count }}
 
 
 {% endblock body %}
