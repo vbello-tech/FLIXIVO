@@ -26,7 +26,12 @@ SECRET_KEY = 'django-insecure-5@0&t4ind^muj93dr^cc%8)cyza3pwno%i%*3rcou&)g8z399^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '0.0.0.0',
+    'localhost',
+    'twitterclone.fly.dev',
+    '127.0.0.1',
+]
 
 
 # Application definition
