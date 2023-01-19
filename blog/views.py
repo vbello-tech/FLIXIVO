@@ -8,6 +8,7 @@ from django.urls import *
 from .forms import *
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
+from users.models import *
 
 # Create your views here.
 

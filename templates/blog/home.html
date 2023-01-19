@@ -5,12 +5,16 @@
 
 {% block body %}
 
-<h1>WELCOME</h1>
 {% for post in posts %}
+{% if post.author.userprofile.profile_pic %}
+    <img src="{{ post.author.userprofile.profile_pic.url }}" alt="" class="img-rounded">
+{% endif %}
     <a href="{% url 'user:profile' pk=post.author.pk %}">{{ post.author }}</a>
+   
     <a href="{{ post.get_url }}">{{ post.tweet }}</a>
-
+{% if request.user == post.author %}
     <a href="{{ post.edit_url }}">Edit</a><a href="{{ post.delete_url }}">Delete</a>
+{% endif %}
 <br>
 {% if post.parenttweet %}
         {{ post.parent.tweet }}

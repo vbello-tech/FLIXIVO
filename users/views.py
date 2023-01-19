@@ -16,12 +16,12 @@ def follow(request, pk):
     user = request.user
     person = get_object_or_404(UserProfile, pk=pk)
     user_prof =  get_object_or_404(UserProfile, person=user)
-    if user != person:
+    if request.user != person.person:
         person.followers.add(user)
         user_prof.following.add(person.person)
 
     return HttpResponseRedirect(reverse("user:profile", kwargs={
-            'pk': person.pk,
+            'pk':person.person.pk,
         }))
 
 
@@ -58,8 +58,9 @@ def change_password(request):
 class ProfileView(View, LoginRequiredMixin):
     def get(self, request, pk, *args, **kwargs):
         profile = UserProfile.objects.get(
-            pk=pk,
+            person=pk,
         )
+        print(profile.profile_id)
         context = {
             'profile': profile
         }

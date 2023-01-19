@@ -1,10 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+    {% load static %}
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style.css' %}"/>
     <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
+
+    <h1>WELCOME</h1>
+
+<br>
+
+{% block body %}
+
+{% endblock body %}
+
+<br>
+<br>
+<br>
+<br>
 <a href="{% url 'blog:add_post' %}">ADD POST</a>
 <br>
 <a href="{% url 'blog:home' %}">HOME</a>
@@ -15,14 +30,8 @@
 {% else %}
 <a href="{% url 'user:login' %}">LOGIN</a>
 <br>
+
 {% endif %}
-
-{% block body %}
-
-
-
-{% endblock body %}
-
 
 </body>
 </html>
