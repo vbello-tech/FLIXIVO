@@ -32,4 +32,5 @@ urlpatterns = [
          name="password_reset_complete"),
     path('user/follow/<int:pk>/', follow, name="follow"),
     path('detail/<int:pk>/', ProfileView.as_view(), name="profile"),
+    path('profile/', profile, name="user-profile"),
 ]

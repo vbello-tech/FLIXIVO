@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
-{% block title %}ADD NEW POST{% endblock title %}
+{% block title %}ADD NEW TWEET{% endblock title %}
 
 {% block body %}
-
+<br><br>
 <form method="POST" class="form">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <br>
-       <button type="submit" id="form-submit" class="main-button">POST</button>
+       <p class="text-right"><button type="submit" class="btn btn-primary">RETWEET...</button></p>
     </form>
 
 {% endblock body %}

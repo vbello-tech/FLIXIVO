@@ -12,7 +12,7 @@ from blog .models import *
 
 
 class UserProfile(models.Model):
-    person = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,  blank=True, null=True)
+    person = models.OneToOneField(settings.AUTH_USER_MODEL, related_name="profile", on_delete=models.CASCADE,  blank=True, null=True)
     profile_pic = models.ImageField(blank=True, upload_to="Profile/")
     bio = models.TextField(blank=True)
     #phone_number = PhoneNumberField(blank=True, null=True)

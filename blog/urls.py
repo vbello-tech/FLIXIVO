@@ -10,5 +10,6 @@ urlpatterns = [
     path('post/edit/<int:pk>/', edit_post, name="edit_post"),
     path('post/delete/<int:pk>/', delete, name="delete_post"),
     path('post/like/', likepost, name="like"),
-    path('post/<int:pk>/', Retweet_Post, name="retweet_post"),
+    path('post/quote/<int:pk>/', Quote_Post, name="quote_post"),
+    path('post/retweet/<int:pk>', Retweet, name="retweet_post"),
 ]

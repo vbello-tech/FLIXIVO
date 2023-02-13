@@ -31,7 +31,11 @@ class PostForm(forms.ModelForm):
                     'class': 'form-control',
                     'rows': 10,
                     'cols': 80,
+                    'placeholder':"TYPE YOUR TWEET.",
                 }
             )
 
         }
+
+
+

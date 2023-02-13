@@ -7,6 +7,7 @@ from .forms import *
 from django.contrib.auth import authenticate, update_session_auth_hash
 from django.views.generic import *
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -66,3 +67,14 @@ class ProfileView(View, LoginRequiredMixin):
         }
         return render(self.request, 'registrations/user_detail.html', context)
 
+@login_required
+def profile(request):
+    person = request.user
+    profile = UserProfile.objects.get(
+        person=person,
+    )
+    print(profile.profile_id)
+    context = {
+        'profile': profile
+    }
+    return render(request, 'registrations/user_detail.html', context)

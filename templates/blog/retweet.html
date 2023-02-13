@@ -5,12 +5,13 @@
 
 {% block body %}
 <br>
-{{ post.tweet }}
+RETWEETING TO <em>"{{ post.tweet }}"</em>
 <br>
-<form id="comment" action="{% url 'blog:retweet_post' pk=post.pk %}" method="POST">
+<form id="comment" action="{% url 'blog:quote_post' pk=post.pk %}" method="POST">
     {% csrf_token %}
-    <input name="body" type="text" id="body" placeholder="Enter your retweet" required="">
-    <button type="submit" id="form-submit" >Submit</button>
-
+    <div class="form-control">
+    <input name="body" type="text" id="body" placeholder="your retweet">
+    <p class="text-right"><button type="submit" class="btn btn-primary">POST.</button></p>
+    </div>
 </form>
 {% endblock body %}

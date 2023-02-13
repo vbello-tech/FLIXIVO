@@ -6,31 +6,189 @@
 {% block body %}
 
 {% for post in posts %}
+
+{% if not post.retweeted %}
+
+<article>
+
 {% if post.author.userprofile.profile_pic %}
     <img src="{{ post.author.userprofile.profile_pic.url }}" alt="" class="img-rounded">
 {% endif %}
-    <a href="{% url 'user:profile' pk=post.author.pk %}">{{ post.author }}</a>
-   
-    <a href="{{ post.get_url }}">{{ post.tweet }}</a>
-{% if request.user == post.author %}
-    <a href="{{ post.edit_url }}">Edit</a><a href="{{ post.delete_url }}">Delete</a>
-{% endif %}
-<br>
-{% if post.parenttweet %}
-        {{ post.parent.tweet }}
-    {% endif %}
-    <form method="post" action="{% url 'blog:like' %}">
-        {% csrf_token %}
-        LIKES-{{ post.total_likes }}
-        {% if request.user in post.likes.all %}
-        <button name="post_id" value="{{ post.id }}" type="submit">UnLike</button>
-        {% else %}
-        <button name="post_id" value="{{ post.id }}" type="submit">Like</button>
-        {% endif %}
-    </form>
-    <a href="{{ post.retweet }}">retweet</a>
-<br>
-<br>
 
+    <div id="tweet">
+        <a href="{% url 'user:profile' pk=post.author.pk %}">{{ post.author }}</a>
+        <a href="{{ post.edit_url }}">Edit</a><a href="{{ post.delete_url }}">Delete</a>
+        <br>
+        <a href="{{ post.get_url }}">
+            {{ post.tweet }}
+        </a>
+        {% if post.image %}
+        <div class="image">
+            <img src="code.png" alt="">
+        </div>
+        {% endif %}
+        <div class="actions">
+            <form method="post" action="{% url 'blog:like' %}">
+                {% csrf_token %}
+                <button name="post_id" value="{{ post.id }}" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"></path>
+                  </svg>{{ post.total_likes }}</button>
+
+            </form>
+            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="25" fill="currentColor" class="bi bi-chat-left-dots-fill" viewBox="0 0 16 16">
+                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
+              </svg></a>
+
+            <a href="{{ post.retweet }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="25" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                    <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                    <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                  </svg>
+            </a>
+            <a href="{{ post.quote }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="25" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                  </svg>
+            </a>
+        </div>
+
+
+    </div>
+</article>
+{% else %}
+
+{% if post.retweeted %}
+    {% if post.tweet %}
+    <article>
+    {% if post.author.userprofile.profile_pic %}
+        <img src="{{ post.author.userprofile.profile_pic.url }}" alt="" class="img-rounded">
+    {% endif %}
+    <div id="tweet">
+        <a href="{% url 'user:profile' pk=post.author.pk %}">{{ post.author }}</a>
+        <a href="{{ post.edit_url }}">Edit</a><a href="{{ post.delete_url }}">Delete</a>
+        <br>
+        <a href="{{ post.get_url }}">
+            {{ post.tweet }}
+        </a>
+
+            <div class="retweet">
+
+                {% if post.parent.author.userprofile.profile_pic %}
+                    <img src="{{ post.parent.author.userprofile.profile_pic.url }}" alt="" class="img-rounded">
+                {% endif %}
+
+                <div id="tweet">
+                    <a href="{% url 'user:profile' pk=post.parent.author.pk %}">{{ post.parent.author }}</a>
+                    <a href="{{ post.parent.edit_url }}">Edit</a><a href="{{ post.parent.delete_url }}">Delete</a>
+                    <br>
+                    <a href="{{ post.parent.get_url }}">
+                        {{ post.parent.tweet }}
+                    </a>
+
+                   {% if post.parent.image %}
+                    <div class="image">
+                        <img src="code.png" alt="">
+                    </div>
+                    {% endif %}
+
+                </div>
+
+            <br>
+
+            </div>
+        <div class="actions">
+            <form method="post" action="{% url 'blog:like' %}">
+                {% csrf_token %}
+                <button name="post_id" value="{{ post.id }}" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"></path>
+                  </svg>{{ post.total_likes }}</button>
+
+            </form>
+            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="25" fill="currentColor" class="bi bi-chat-left-dots-fill" viewBox="0 0 16 16">
+                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
+              </svg></a>
+
+            <a href="{{ post.retweet }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="25" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                    <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                    <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                  </svg>
+            </a>
+            <a href="{{ post.quote }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="25" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                  </svg>
+            </a>
+        </div>
+
+
+    </div>
+</article>
+{% else %}
+    <article>
+
+    <div id="tweet">
+        <a href="{% url 'user:profile' pk=post.author.pk %}">{{ post.author }}</a> rewtweed this tweet
+        <a href="{{ post.edit_url }}">Edit</a><a href="{{ post.delete_url }}">Delete</a>
+        <br>
+
+            <div class="retweet">
+
+                {% if post.parent.author.userprofile.profile_pic %}
+                    <img src="{{ post.parent.author.userprofile.profile_pic.url }}" alt="" class="img-rounded">
+                {% endif %}
+
+                <div id="tweet">
+                    <a href="{% url 'user:profile' pk=post.parent.author.pk %}">{{ post.parent.author }}</a>
+                    <a href="{{ post.parent.tweet.edit_url }}">Edit</a><a href="{{ post.parent.tweet.delete_url }}">Delete</a>
+                    <br>
+                    <a href="{{ post.parent.tweet.get_url }}">
+                        {{ post.parent.tweet }}
+                    </a>
+                    {% if post.parent.image %}
+                    <div class="image">
+                        <img src="code.png" alt="">
+                    </div>
+                    {% endif %}
+
+                </div>
+
+            <br>
+
+            </div>
+        <div class="actions">
+            <form method="post" action="{% url 'blog:like' %}">
+                {% csrf_token %}
+                <button name="post_id" value="{{ post.id }}" type="submit"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"></path>
+                  </svg>{{ post.total_likes }}</button>
+
+            </form>
+            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="60" height="25" fill="currentColor" class="bi bi-chat-left-dots-fill" viewBox="0 0 16 16">
+                <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm5 4a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
+              </svg></a>
+
+            <a href="{{ post.retweet }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="25" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                    <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"/>
+                    <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"/>
+                  </svg>
+            </a>
+            <a href="{{ post.quote }}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="25" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                  </svg>
+            </a>
+        </div>
+
+
+    </div>
+</article>
+{% endif %}
+
+{% endif %}
+
+{% endif %}
 {% endfor %}
+
 {% endblock body %}

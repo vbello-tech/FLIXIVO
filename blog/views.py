@@ -96,17 +96,27 @@ def likepost(request):
         post.likes.add(request.user)
     return HttpResponseRedirect(reverse('blog:home'))
 
-def Retweet_Post(request, pk):
+def Quote_Post(request, pk):
     parent = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
-        body = request.POST.get('body')
-        re_tweet = Post.objects.create(
+        body = request.POST['body']
+        re_tweet, created = Post.objects.get_or_create(
             author=request.user,
             parent=parent,
-            tweet=body
+            retweeted=True,
+            tweet=body,
         )
         return redirect('blog:home')
     context = {
-        'post':parent
+        'post':parent,
     }
     return render(request, 'blog/retweet.html', context)
+
+def Retweet(request, pk):
+    parent = get_object_or_404(Post, pk=pk)
+    re_tweet = Post.objects.create(
+        author=request.user,
+        parent=parent,
+        retweeted=True
+    )
+    return HttpResponseRedirect(reverse('blog:home'))

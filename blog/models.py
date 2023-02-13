@@ -14,16 +14,23 @@ def comment_code():
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    tweet = models.TextField()
+    tweet = models.TextField(blank=True, null=True)
     parent = models.ForeignKey(
         "self", on_delete=models.CASCADE, related_name='parenttweet', null=True, blank=True)
     post_code =models.CharField(max_length=20, default=post_code())
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="post_likes")
     posted_date = models.DateTimeField(default=timezone.now)
+    image = models.ImageField(blank=True, upload_to="Post/")
+    retweeted = models.BooleanField(default=False, blank=True, null=True)
+
+    def quote(self):
+        return reverse("blog:quote_post", kwargs={
+            'pk': self.pk,
+        })
 
     def retweet(self):
         return reverse("blog:retweet_post", kwargs={
-            'pk': self.pk,
+            'pk':self.pk,
         })
 
     def total_likes(self):
