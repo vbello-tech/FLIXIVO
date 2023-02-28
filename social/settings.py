@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5@0&t4ind^muj93dr^cc%8)cyza3pwno%i%*3rcou&)g8z399^'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = [
     '0.0.0.0',
@@ -49,6 +50,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'crispy_forms',
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -85,22 +88,31 @@ WSGI_APPLICATION = 'social.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
-"""
 
-DATABASES = {
-    'default':  dj_database_url.config(
-        default='postgres://tzjwjqjs:1c21QA_ibSoj8N1BqiEuWnJyPvdkCJ0D@surus.db.elephantsql.com/tzjwjqjs'
-    )
-}
+else:
+    DATABASES = {
+        'default':  dj_database_url.config(
+            default='postgres://tzjwjqjs:1c21QA_ibSoj8N1BqiEuWnJyPvdkCJ0D@surus.db.elephantsql.com/tzjwjqjs'
+        )
+    }
 
-"""
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+    CLOUDINARY_STORAGE = {
+        'CLOUD_NAME': 'dhzn9oqey',
+        'API_KEY': '894294618768234',
+        'API_SECRET': '8fqL8OfZKqSJChXcObtsRWqefPQ'
+    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
