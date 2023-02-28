@@ -3,7 +3,6 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.exceptions import ObjectDoesNotExist
-#from phonenumber_field.modelfields import PhoneNumberField
 from django.shortcuts import reverse
 from django.utils import timezone
 from blog .models import *
@@ -14,8 +13,7 @@ from blog .models import *
 class UserProfile(models.Model):
     person = models.OneToOneField(settings.AUTH_USER_MODEL, related_name="profile", on_delete=models.CASCADE,  blank=True, null=True)
     profile_pic = models.ImageField(blank=True, upload_to="Profile/")
-    bio = models.TextField(blank=True)
-    #phone_number = PhoneNumberField(blank=True, null=True)
+    bio = models.CharField(max_length=300, blank=True)
     following = models.ManyToManyField(settings.AUTH_USER_MODEL, symmetrical=False, related_name="following", blank=True)
     followers = models.ManyToManyField(settings.AUTH_USER_MODEL, symmetrical=False, related_name="followers", blank=True)
     profile_id = models.IntegerField(blank=True, null=True)

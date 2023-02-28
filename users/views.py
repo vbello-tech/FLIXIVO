@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, update_session_auth_hash
 from django.views.generic import *
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
+from django.views.generic import View
+from django.core.files.storage import FileSystemStorage
 
 
 # Create your views here.
@@ -78,19 +80,26 @@ def profile(request):
     }
     return render(request, 'registrations/user_detail.html', context)
 
-
-@login_required
-def ProfileUpdate(request):
-    profile = UserProfile.objects.get(person=request.user,)
-    if request.method == "POST":
+class ProfileUpdate(View):
+    def get(self, request, *args, **kwargs):
         form = ProfileForm(request.POST or None)
-        if form.is_valid():
-            github = form.cleaned_data.get('github')
-            picture = form.cleaned_data.get('picture')
-            challenge.github = github
-            challenge.picture = picture
-        challenge.closed_date = timezone.now()
-        challenge.completed = True
-
-        challenge.save()
-        return redirect('challenge')
+        context = {
+            'form':form,
+        }
+        return render(request, 'registrations/profile_edit.html', context)
+    def post(self, request, *args, **kwargs):
+        profile = UserProfile.objects.get(person=request.user,)
+        if request.method == "POST":
+            form = ProfileForm(request.POST, request.FILES or None)
+            if form.is_valid():
+                tag = form.cleaned_data.get('tag')
+                bio = form.cleaned_data.get('bio')
+                profile_pic = form.cleaned_data.get('profile_pic')
+                if tag:
+                    profile.tag = tag
+                if bio:
+                    profile.bio = bio
+                if profile_pic:
+                    profile.profile_pic = profile_pic
+                profile.save()
+                return redirect('user:user-profile')

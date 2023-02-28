@@ -17,7 +17,6 @@
 
     <div id="tweet">
         <a href="{% url 'user:profile' pk=post.author.pk %}">{{ post.author }}</a>
-        <small><a href="{{ post.edit_url }}">Edit</a><a href="{{ post.delete_url }}">Delete</a></small>
         <br>
         <a href="{{ post.get_url }}">
             {{ post.tweet }}
@@ -51,8 +50,9 @@
                   </svg>
             </a>
         </div>
-
-
+        {% if request.user == post.author %}
+        <button class="primaryAction btn btn-secondary"><a href="{{ post.edit_url }}">Edit</a></button> <button class="primaryAction btn btn-secondary"><a href="{{ post.delete_url }}">Delete</a></button>
+        {% endif %}
     </div>
 </article>
 {% else %}
@@ -65,7 +65,7 @@
     {% endif %}
     <div id="tweet">
         <a href="{% url 'user:profile' pk=post.author.pk %}">{{ post.author }}</a>
-        <a href="{{ post.edit_url }}">Edit</a><a href="{{ post.delete_url }}">Delete</a>
+
         <br>
         <a href="{{ post.get_url }}">
             {{ post.tweet }}
@@ -120,8 +120,9 @@
                   </svg>
             </a>
         </div>
-
-
+        {% if request.user == post.author %}
+        <button class="primaryAction btn btn-secondary"><a href="{{ post.edit_url }}">Edit</a></button> <button class="primaryAction btn btn-secondary"><a href="{{ post.delete_url }}">Delete</a></button>
+        {% endif %}
     </div>
 </article>
 {% else %}
@@ -129,7 +130,7 @@
 
     <div id="tweet">
         <a href="{% url 'user:profile' pk=post.author.pk %}">{{ post.author }}</a> rewtweed this tweet
-        <a href="{{ post.edit_url }}">Edit</a><a href="{{ post.delete_url }}">Delete</a>
+
         <br>
 
             <div class="retweet">
@@ -180,8 +181,9 @@
                   </svg>
             </a>
         </div>
-
-
+        {% if request.user == post.author %}
+        <button class="primaryAction btn btn-secondary"><a href="{{ post.edit_url }}">Edit</a></button> <button class="primaryAction btn btn-secondary"><a href="{{ post.delete_url }}">Delete</a></button>
+        {% endif %}
     </div>
 </article>
 {% endif %}

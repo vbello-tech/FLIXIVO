@@ -11,7 +11,7 @@
 
                 {% if user.is_authenticated %}
 <h2 class="btn btn-primary">YOU ARE ABOUT TO CHANGE YOUR PROFILE DETAILS</h2>
-                <form  class="form-control" method="POST">
+                <form  class="form-control" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form|crispy }}
                     <br>

@@ -7,12 +7,14 @@
 {% endif %}
 <br>
 {{ profile.person }}
+{{ profile.tag }}<a href="{% url 'user:edit_profile' %}">edit profile</a>
 
 {% if not profile.person == request.user %}
 <a href="{{ profile.follow }}">FOLLOW</a>
 {% endif %}
 
 {{ profile.bio }}
+
 <br>
 following-{{ profile.following.count }}followers-{{ profile.followers.count }}
 

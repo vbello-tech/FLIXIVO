@@ -33,4 +33,5 @@ urlpatterns = [
     path('user/follow/<int:pk>/', follow, name="follow"),
     path('detail/<int:pk>/', ProfileView.as_view(), name="profile"),
     path('profile/', profile, name="user-profile"),
+    path('profile/edit/', ProfileUpdate.as_view(), name="edit_profile"),
 ]
