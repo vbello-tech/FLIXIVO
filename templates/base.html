@@ -9,6 +9,131 @@
     <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}"/>
     <link rel="stylesheet" href="{% static 'style.css' %}"/>
     <title>{% block title %}{% endblock title %}</title>
+    <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+
+        body {
+          background-color: rgb(119, 118, 118)19, 118, 118;
+          font-family: Arial, Helvetica, sans-serif;
+          text-decoration: none;
+          color: black;
+        }
+
+        .container{
+          margin-bottom: 20vh;
+        }
+
+        article{
+          margin: 20px 50px;
+          border: 0.2px solid black;
+          padding: 2%;
+          border-radius: 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        article img {
+          width: 100px;
+          height: 100px;
+          object-position: center;
+          object-fit: contain;
+        }
+
+        article a {
+          list-style: none;
+          text-decoration: none;
+          color: black;
+        }
+
+        #tweet {
+          margin-left: 50px;
+          display: block;
+        }
+
+        #tweet .image{
+          width: 100%;
+          height: 40vh;
+          margin-top: 10px;
+        }
+
+        #tweet .image img{
+          width: 100%;
+          max-width: 100%;
+          max-height: 100%;
+          height: 100%;
+          object-position: center;
+          object-fit: fill;
+        }
+
+        #tweet .actions {
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+          margin: 15px 200px 10px 200px;
+        }
+
+        #tweet .actions form {
+          margin-right: 30px;
+        }
+
+        #tweet .actions a {
+          margin-right: 30px;
+        }
+
+
+        .retweet{
+          margin: 10px 5px;
+          border: 0.2px solid black;
+          padding: 2%;
+          border-radius: 10px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .retweet img {
+          width: 100px;
+          height: 75px;
+          object-position: center;
+          object-fit: contain;
+        }
+
+        .retweet a {
+          list-style: none;
+          text-decoration: none;
+          color: black;
+        }
+
+        input [type-text] {
+            width: 100%;
+            padding: 12px 20px;
+            box-sizing: border-box;
+        }
+
+        footer {
+          width: 100%;
+          background-color: var(--darkgray);
+          height: 10vh;
+          color: white;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          bottom: 0;
+          background-color: black;
+          position: fixed;
+          padding: 5px 60px;
+          margin-top: 20vh;
+        }
+
+
+
+
+    </style>
 </head>
 <body>
 
