@@ -6,14 +6,14 @@
 {% block body %}
 
 
-<form class="form-control" action="{% url 'search' %}" method="POST" >
+<form class="form-control" action="{% url 'blog:search_result' %}" method="POST" >
     {% csrf_token %}
     <input type="text" class="form-control" id="search_info" name="search_info" placeholder="Enter a phone or category to search" required data-error="Please enter your name">
    <br>
     <select id="search_type" name="search_type" class="form-control">
        <option disabled selected>WHAT ARE YOU SEARCHING FOR?</option>
        <option value="Post">Post</option>
-       <option value="User">User</option>
+       <option value="User Tag">User Tag</option>
    </select>
     <br>
     <button class="btn btn-danger" type="submit">SEARCH</button>

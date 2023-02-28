@@ -61,7 +61,6 @@ class ProfileView(View, LoginRequiredMixin):
         profile = UserProfile.objects.get(
             person=pk,
         )
-        print(profile.profile_id)
         context = {
             'profile': profile
         }
@@ -78,3 +77,20 @@ def profile(request):
         'profile': profile
     }
     return render(request, 'registrations/user_detail.html', context)
+
+
+@login_required
+def ProfileUpdate(request):
+    profile = UserProfile.objects.get(person=request.user,)
+    if request.method == "POST":
+        form = ProfileForm(request.POST or None)
+        if form.is_valid():
+            github = form.cleaned_data.get('github')
+            picture = form.cleaned_data.get('picture')
+            challenge.github = github
+            challenge.picture = picture
+        challenge.closed_date = timezone.now()
+        challenge.completed = True
+
+        challenge.save()
+        return redirect('challenge')

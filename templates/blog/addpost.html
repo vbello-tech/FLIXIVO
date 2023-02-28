@@ -6,11 +6,12 @@
 
 {% block body %}
 <br><br>
-<form method="POST" class="form">
+<form method="POST" class="form" enctype="multipart/form-data">
         {% csrf_token %}
+        {{ form.media }}
         {{ form|crispy }}
         <br>
-       <p class="text-right"><button type="submit" class="btn btn-primary">RETWEET...</button></p>
+       <p class="text-right"><button type="submit" class="btn btn-primary">TWEET...</button></p>
     </form>
 
 {% endblock body %}

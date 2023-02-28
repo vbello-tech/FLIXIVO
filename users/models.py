@@ -19,6 +19,7 @@ class UserProfile(models.Model):
     following = models.ManyToManyField(settings.AUTH_USER_MODEL, symmetrical=False, related_name="following", blank=True)
     followers = models.ManyToManyField(settings.AUTH_USER_MODEL, symmetrical=False, related_name="followers", blank=True)
     profile_id = models.IntegerField(blank=True, null=True)
+    tag = models.CharField(max_length=150, blank=True, null=True)
 
     def follow(self):
         return reverse("user:follow", kwargs={

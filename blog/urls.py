@@ -12,4 +12,6 @@ urlpatterns = [
     path('post/like/', likepost, name="like"),
     path('post/quote/<int:pk>/', Quote_Post, name="quote_post"),
     path('post/retweet/<int:pk>', Retweet, name="retweet_post"),
+    path('search/', search, name='search'),
+    path('search-result/', searchresult, name="search_result"),
 ]

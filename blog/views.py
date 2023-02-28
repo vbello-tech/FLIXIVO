@@ -48,7 +48,7 @@ class Detail(View):
 class AddPostView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'blog/addpost.html'
-    fields = ('tweet',)
+    fields = ('tweet', 'image',)
     login_url = 'user:login'
     success_url = reverse_lazy('blog:home')
 
@@ -121,5 +121,29 @@ def Retweet(request, pk):
     )
     return HttpResponseRedirect(reverse('blog:home'))
 
+def search(request):
+    return render(request, 'blog/search.html')
+
+def searchresult(request):
+    if request.method =="POST":
+        search_info = request.POST['search_info']
+        search_type = request.POST['search_type']
+        if search_type == "Post":
+            result = Post.objects.filter(
+                tweet__icontains = search_info
+            )
+            type = "post"
+        if search_type == "User Tag":
+            result = UserProfile.objects.filter(
+                tag__icontains = search_info
+            )
+            type = "user"
+        context = {
+            'result': result,
+            'type': type,
+            'search': search_info,
+
+        }
+        return render(request, 'blog/searchresult.html', context)
 
 

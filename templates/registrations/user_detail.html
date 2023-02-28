@@ -2,11 +2,18 @@
 {% load static %}
 
 {% block body %}
+{% if profile.profile_pic %}
+    <img src="{{ profile.profile_pic.url }}" alt="" class="img-rounded" height="50" width="50">
+{% endif %}
+<br>
+{{ profile.person }}
 
-{{ profile.person }}<a href="{{ profile.follow }}">FOLLOW</a>
+{% if not profile.person == request.user %}
+<a href="{{ profile.follow }}">FOLLOW</a>
+{% endif %}
 
 {{ profile.bio }}
-
+<br>
 following-{{ profile.following.count }}followers-{{ profile.followers.count }}
 
 

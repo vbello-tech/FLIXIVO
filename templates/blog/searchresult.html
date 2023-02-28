@@ -5,7 +5,8 @@
 
 {% block body %}
 
-{% for post in posts %}
+{% if type == "post" %}
+{% for post in result %}
 
 {% if not post.retweeted %}
 
@@ -17,7 +18,7 @@
 
     <div id="tweet">
         <a href="{% url 'user:profile' pk=post.author.pk %}">{{ post.author }}</a>
-        <small><a href="{{ post.edit_url }}">Edit</a><a href="{{ post.delete_url }}">Delete</a></small>
+        <a href="{{ post.edit_url }}">Edit</a><a href="{{ post.delete_url }}">Delete</a>
         <br>
         <a href="{{ post.get_url }}">
             {{ post.tweet }}
@@ -190,5 +191,13 @@
 
 {% endif %}
 {% endfor %}
+{% else %}
+    {% if type == "user" %}
+        {{ result.person.username }}
+    {% endif %}
 
+{% endif %}
+{% if type != "user" and "post" %}
+    <h3>no result for {{ search }}</h3>
+{% endif %}
 {% endblock body %}
