@@ -17,6 +17,7 @@
 
 <br>
 following-{{ profile.following.count }}followers-{{ profile.followers.count }}
-
+<br>
+<a href="{% url 'user:logout' %}">LOGOUT...</a>
 
 {% endblock body %}
