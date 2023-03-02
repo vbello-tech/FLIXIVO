@@ -116,9 +116,9 @@ else:
         'API_SECRET': '8fqL8OfZKqSJChXcObtsRWqefPQ'
     }
 
-    CSRF_TRUSTED_ORIGINS = ['https://twitterclone.fly.dev/']
+CSRF_TRUSTED_ORIGINS = ['https://twitterclone.fly.dev/']
 
-    CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Password validation
