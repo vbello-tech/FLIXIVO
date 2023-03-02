@@ -4,8 +4,9 @@
 {% block title %}HOMEPAGE{% endblock title %}
 
 {% block body %}
-
+{% if result %}
 {% if type == "post" %}
+<h3>SHOWING RESULT FOR "{{ search }}"</h3>
 {% for post in result %}
 
 {% if not post.retweeted %}
@@ -193,11 +194,18 @@
 {% endfor %}
 {% else %}
     {% if type == "user" %}
-        {{ result.person.username }}
+    <div class="usr_res">
+        <h3>SHOWING ALL USERS WITH TAG "{{ search }}"</h3>
+        {% for item in result %}
+            <a href="{% url 'user:profile' pk=item.pk %}"><h4>{{ item.person }}</h4></a>
+        {% endfor %}
+    </div>
     {% endif %}
 
 {% endif %}
+{% else %}
 {% if type != "user" and "post" %}
     <h3>no result for {{ search }}</h3>
+{% endif %}
 {% endif %}
 {% endblock body %}

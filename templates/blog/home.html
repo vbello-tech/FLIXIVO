@@ -4,7 +4,7 @@
 {% block title %}HOMEPAGE{% endblock title %}
 
 {% block body %}
-<h3>WELCOME. GO AHEAD AND ADD A POST.</h3>
+<h3>WELCOME! <a href="{% url 'user:login' %}">LOGIN</a> TO ADD POST.</h3>
 
 {% for post in posts %}
 
@@ -80,7 +80,6 @@
 
                 <div id="tweet">
                     <a href="{% url 'user:profile' pk=post.parent.author.pk %}">{{ post.parent.author }}</a>
-                    <a href="{{ post.parent.edit_url }}">Edit</a><a href="{{ post.parent.delete_url }}">Delete</a>
                     <br>
                     <a href="{{ post.parent.get_url }}">
                         {{ post.parent.tweet }}
@@ -142,7 +141,6 @@
 
                 <div id="tweet">
                     <a href="{% url 'user:profile' pk=post.parent.author.pk %}">{{ post.parent.author }}</a>
-                    <a href="{{ post.parent.tweet.edit_url }}">Edit</a><a href="{{ post.parent.tweet.delete_url }}">Delete</a>
                     <br>
                     <a href="{{ post.parent.tweet.get_url }}">
                         {{ post.parent.tweet }}

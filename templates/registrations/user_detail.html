@@ -2,22 +2,40 @@
 {% load static %}
 
 {% block body %}
-{% if profile.profile_pic %}
-    <img src="{{ profile.profile_pic.url }}" alt="" class="img-rounded" height="50" width="50">
-{% endif %}
-<br>
-{{ profile.person }}
-{{ profile.tag }}<a href="{% url 'user:edit_profile' %}">edit profile</a>
 
-{% if not profile.person == request.user %}
-<a href="{{ profile.follow }}">FOLLOW</a>
-{% endif %}
+<br><br>
+<div class="container" >
+<div class="profile">
+    {% if profile.profile_pic %}
+        <img src="{{ profile.profile_pic.url }}" alt="" class="img-rounded">
+    {% endif %}
+    <div class="user">
+    <h3>{{ profile.person }}</h3>
+    {% if profile.tag %}(@{{ profile.tag }}){% endif %}
 
-{{ profile.bio }}
 
-<br>
-following-{{ profile.following.count }}followers-{{ profile.followers.count }}
-<br>
-<a href="{% url 'user:logout' %}">LOGOUT...</a>
 
+
+    {% if profile.person == request.user %}
+    <a href="{% url 'user:edit_profile' %}">edit profile</a>
+        {% else %}
+        {% if request.user in profile.followers %}
+            <h5>YOU FOLLOW THIS PERSON</h5>
+        {% else %}
+            <a href="{{ profile.follow }}">FOLLOW</a>
+        {% endif %}
+    {% endif %}
+    <br>
+        <h4>{{ profile.bio }}</h4>
+
+    <br>
+    following-{{ profile.following.count }}followers-{{ profile.followers.count }}
+    <br>
+    </div>
+</div>
+    {% if profile.person == request.user %}
+    <a href="{% url 'user:logout' %}">LOGOUT...</a>
+    {% endif %}
+
+</div>
 {% endblock body %}

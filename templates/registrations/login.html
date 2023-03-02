@@ -11,6 +11,7 @@
 
                 {% if user.is_authenticated %}
                     YOU ARE SIGNED IN ...
+                    <a href="{% url 'blog:home' %}">HOME</a>
                 {% else %}
 
                 <form  class="form-control" method="POST">

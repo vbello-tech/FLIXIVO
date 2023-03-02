@@ -2,13 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from .models import *
 from django.urls import reverse_lazy, reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from .forms import *
 from django.contrib.auth import authenticate, update_session_auth_hash
 from django.views.generic import *
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.storage import FileSystemStorage
 
 
@@ -60,13 +61,16 @@ def change_password(request):
 
 class ProfileView(View, LoginRequiredMixin):
     def get(self, request, pk, *args, **kwargs):
-        profile = UserProfile.objects.get(
-            person=pk,
-        )
-        context = {
-            'profile': profile
-        }
-        return render(self.request, 'registrations/user_detail.html', context)
+        try:
+            profile = UserProfile.objects.get(
+                person=pk,
+            )
+            context = {
+                'profile': profile
+            }
+            return render(self.request, 'registrations/user_detail.html', context)
+        except ObjectDoesNotExist:
+            return HttpResponse(request, 'THIS USER HAS NO PROFILE')
 
 @login_required
 def profile(request):
@@ -74,7 +78,6 @@ def profile(request):
     profile = UserProfile.objects.get(
         person=person,
     )
-    print(profile.profile_id)
     context = {
         'profile': profile
     }
