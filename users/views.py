@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.storage import FileSystemStorage
+from blog.models import Post
 
 
 # Create your views here.
@@ -65,8 +66,12 @@ class ProfileView(View, LoginRequiredMixin):
             profile = UserProfile.objects.get(
                 person=pk,
             )
+            related_post = Post.objects.filter(
+                author = profile.person
+            )
             context = {
-                'profile': profile
+                'profile': profile,
+                'related_post':related_post,
             }
             return render(self.request, 'registrations/user_detail.html', context)
         except ObjectDoesNotExist:
@@ -78,8 +83,12 @@ def profile(request):
     profile = UserProfile.objects.get(
         person=person,
     )
+    related_post = Post.objects.filter(
+        author = person
+    )
     context = {
-        'profile': profile
+        'profile': profile,
+        'related_post':related_post,
     }
     return render(request, 'registrations/user_detail.html', context)
 

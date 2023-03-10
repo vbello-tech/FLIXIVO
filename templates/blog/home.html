@@ -12,8 +12,8 @@
 
 <article>
 
-{% if post.author.userprofile.profile_pic %}
-    <img src="{{ post.author.userprofile.profile_pic.url }}" alt="" class="img-rounded">
+{% if post.author.profile.profile_pic %}
+    <img src="{{ post.author.profile.profile_pic.url }}" alt="NO IMAGE" class="img-rounded">
 {% endif %}
 
     <div id="tweet">
@@ -61,8 +61,8 @@
 {% if post.retweeted %}
     {% if post.tweet %}
     <article>
-    {% if post.author.userprofile.profile_pic %}
-        <img src="{{ post.author.userprofile.profile_pic.url }}" alt="" class="img-rounded">
+    {% if post.author.profile.profile_pic %}
+        <img src="{{ post.author.profile.profile_pic.url }}" alt="" class="img-rounded">
     {% endif %}
     <div id="tweet">
         <a href="{% url 'user:profile' pk=post.author.pk %}">{{ post.author }}</a>
@@ -74,8 +74,8 @@
 
             <div class="retweet">
 
-                {% if post.parent.author.userprofile.profile_pic %}
-                    <img src="{{ post.parent.author.userprofile.profile_pic.url }}" alt="" class="img-rounded">
+                {% if post.parent.author.profile.profile_pic %}
+                    <img src="{{ post.parent.author.profile.profile_pic.url }}" alt="" class="img-rounded">
                 {% endif %}
 
                 <div id="tweet">
@@ -87,7 +87,7 @@
 
                    {% if post.parent.image %}
                     <div class="image">
-                        <img src="{{ post.parent.image.url }}" alt=""> alt="">
+                        <img src="{{ post.parent.image.url }}" alt="">
                     </div>
                     {% endif %}
 
@@ -135,8 +135,8 @@
 
             <div class="retweet">
 
-                {% if post.parent.author.userprofile.profile_pic %}
-                    <img src="{{ post.parent.author.userprofile.profile_pic.url }}" alt="" class="img-rounded">
+                {% if post.parent.author.profile.profile_pic %}
+                    <img src="{{ post.parent.author.profile.profile_pic.url }}" alt="" class="img-rounded">
                 {% endif %}
 
                 <div id="tweet">

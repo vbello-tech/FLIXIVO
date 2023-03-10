@@ -10,7 +10,7 @@ RETWEETING TO <em>"{{ post.tweet }}"</em>
 <form id="comment" action="{% url 'blog:quote_post' pk=post.pk %}" method="POST">
     {% csrf_token %}
     <div class="form-control">
-    <input name="body" type="text" id="body" placeholder="your retweet">
+    <input name="body" type="text" id="body" placeholder="enter your retweet">
 
     <p class="text-right"><button type="submit" class="btn btn-primary">POST.</button></p>
     </div>
