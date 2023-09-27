@@ -91,15 +91,15 @@ WSGI_APPLICATION = 'social.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+#if DEBUG:
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+}
 
-else:
+"""else:
     DATABASES = {
         'default':  dj_database_url.config(
             default='postgres://tzjwjqjs:1c21QA_ibSoj8N1BqiEuWnJyPvdkCJ0D@surus.db.elephantsql.com/tzjwjqjs'
@@ -114,7 +114,7 @@ else:
         'CLOUD_NAME': 'dhzn9oqey',
         'API_KEY': '894294618768234',
         'API_SECRET': '8fqL8OfZKqSJChXcObtsRWqefPQ'
-    }
+    }"""
 
 CSRF_TRUSTED_ORIGINS = ['https://twitterclone.fly.dev']
 
